@@ -1,5 +1,4 @@
-## A Large Neighborhood Search for the Pickup and Delivery Problem with
-Time Windows
+## A Large Neighborhood Search for the Pickup and Delivery Problem with Time Windows
 
 ### Bài toán cần giải quyết
 
