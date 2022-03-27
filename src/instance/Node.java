@@ -18,9 +18,11 @@ public class Node {
         this.timeWindows = new double[] { n.timeWindows[0], n.timeWindows[1] };
     }
 
-//    public Node() {
-//
-//    }
+    public Node() {
+
+    }
+
+
 
     public double getServiceTime() {
         return this.serviceTime;
