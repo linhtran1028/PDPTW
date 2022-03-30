@@ -83,11 +83,71 @@ public class Instance {
     }
 
     public void importCustomerData(int size, String name) throws IOException {
+        String dataFileName = "";
+        if (type.equals("Solomon"))
+            dataFileName = "./instances" + "/solomon" + "/solomon_" + size + "/" + name + ".txt";
+        else if (type.equals("Homberger"))
+            dataFileName = "./instances" + "/homberger" + "/homberger_" + size + "/" + name + ".txt";
 
+        BufferedReader bReader = new BufferedReader(new FileReader(dataFileName));
+
+        int data_in_x_lines = Integer.MAX_VALUE;
+
+        String line;
+
+        while ((line = bReader.readLine()) != null) {
+            String datavalue[] = line.split("\\s+");
+
+            if (datavalue.length > 0 && datavalue[0].equals("CUST")) {
+                data_in_x_lines = 2;
+            }
+
+            if (data_in_x_lines < 1 && datavalue.length > 0) {
+
+                Node customer = new Node();
+                customer.setId(Integer.parseInt(datavalue[1]));
+                customer.setX(Double.parseDouble(datavalue[2]));
+                customer.setY(Double.parseDouble(datavalue[3]));
+                customer.setDemand(Double.parseDouble(datavalue[4]));
+                customer.setTimeWindow(Double.parseDouble(datavalue[5]), Double.parseDouble(datavalue[6]));
+                customer.setServiceTime(Double.parseDouble(datavalue[7]));
+                this.customers.add(customer);
+            }
+            data_in_x_lines--;
+        }
+        bReader.close();
+
+        numberOfNodes = customers.size();
+
+        System.out.println("Input customers success !");
 
     }
 
     public void importVehicleData(int size, String name) throws IOException {
+        String dataFileName = "";
+        if (type.equals("Solomon"))
+            dataFileName = "./instances" + "/solomon" + "/solomon_" + size + "/" + name + ".txt";
+        else if (type.equals("Homberger"))
+            dataFileName = "./instances" + "/homberger" + "/homberger_" + size + "/" + name + ".txt";
+
+        BufferedReader bReader = new BufferedReader(new FileReader(dataFileName));
+
+        int row = 0;
+
+        String line;
+        while ((line = bReader.readLine()) != null) {
+            String datavalue[] = line.split("\\s+");
+
+            if (row == 4) {
+                //Số lượng xe có sẵn
+                this.vehicleNr = Integer.valueOf(datavalue[1]);
+                //Công suất xe
+                this.vehicleCapacity = Integer.valueOf(datavalue[2]);
+                break;
+            }
+            row++;
+        }
+        bReader.close();
 
         System.out.println("Input vehicle success !");
     }
