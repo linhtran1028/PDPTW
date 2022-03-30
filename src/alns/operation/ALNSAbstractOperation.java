@@ -1,4 +1,6 @@
 package alns.operation;
+import alns.operation.IALNSOperation;
+
 import java.util.*;
 public abstract class ALNSAbstractOperation implements IALNSOperation {
 
