@@ -1,38 +1,38 @@
 package instance;
 
 public class Node {
-    private double timeWindows[]; // khung thoi gian khi di qua moi nut
-    private double serviceTime; // thoi gian thuc hien moi yeu cau
+	
+	private double timeWindows[]; // khung thoi gian khi di qua moi nut
+	private double serviceTime; // thoi gian thuc hien moi yeu cau
     private double x;
     private double y;
     private int id;
     private double demand;
 
-  // Khai bao gia tri nut trong khong gia hai chieu, khung thoi gian rang buoc o moi nut
+
+    // Khai bao gia tri nut trong khong gia hai chieu, khung thoi gian rang buoc o moi nut
     public Node(Node n) {
-        this.x = n.x;
-        this.y = n.y;
-        this.id = n.id;
-        this.demand = n.demand;
-        this.serviceTime = n.serviceTime;
-        this.timeWindows = new double[] { n.timeWindows[0], n.timeWindows[1] };
+    	this.x = n.x;
+    	this.y = n.y;
+    	this.id = n.id;
+    	this.demand = n.demand;
+    	this.serviceTime = n.serviceTime;
+    	this.timeWindows = new double[] { n.timeWindows[0], n.timeWindows[1] };
     }
 
     public Node() {
 
-    }
-
-
-
-    public double getServiceTime() {
+	}
+    
+	public double getServiceTime() {
         return this.serviceTime;
     }
 
     public void setServiceTime(double serviceTime) {
         this.serviceTime = serviceTime;
     }
-
-    public double[] getTimeWindow() {
+    
+	public double[] getTimeWindow() {
         return this.timeWindows;
     }
 
@@ -40,7 +40,7 @@ public class Node {
         this.timeWindows = new double[] { start, end };
     }
 
-    public double getX() {
+	public double getX() {
         return x;
     }
 

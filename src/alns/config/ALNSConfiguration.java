@@ -1,5 +1,6 @@
 package alns.config;
 
+
 public enum ALNSConfiguration implements IALNSConfig {
 
     DEFAULT(5000, 500, 0.1, 20, 5, 1, 0.99937, 0.05, 0.5);

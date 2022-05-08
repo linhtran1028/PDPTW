@@ -1,12 +1,14 @@
 package algrithm;
 
+
+import instance.Instance;
+import instance.Node;
+import instance.Route;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import instance.Node;
-import instance.Route;
-import instance.Instance;
-public class Greedy {
+public class GreedyVRP {
 
     private List<Node> customers;
 
@@ -22,7 +24,7 @@ public class Greedy {
 
     private int vehicleCapacity;
 
-    public Greedy(Instance instance) {
+    public GreedyVRP(Instance instance) {
         this.customers = instance.getCustomers();
         this.initialCustomerNr = instance.getCustomerNr();
         this.distanceMatrix = instance.getDistanceMatrix();

@@ -1,8 +1,5 @@
 package algrithm;
 
-import java.io.IOException;
-import java.util.Random;
-
 import alns.config.ControlParameter;
 import alns.config.IALNSConfig;
 import alns.destroy.IALNSDestroy;
@@ -15,7 +12,10 @@ import alns.repair.RandomRepair;
 import alns.repair.RegretRepair;
 import instance.Instance;
 
-public class ALNSProcess {
+import java.io.IOException;
+import java.util.Random;
+
+public class MyALNSProcess {
     private final IALNSConfig config;
     private final IALNSDestroy[] destroy_ops = new IALNSDestroy[]{
             new ShawDestroy(),
@@ -29,8 +29,8 @@ public class ALNSProcess {
     };
 
     private final double T_end_t = 0.01;
-    private ALNSSolution s_g = null;
-    private ALNSSolution s_c = null;
+    private MyALNSSolution s_g = null;
+    private MyALNSSolution s_c = null;
     private boolean cpng = false;
     private int i = 0;
     private double T;
@@ -39,16 +39,17 @@ public class ALNSProcess {
     private double T_end;
 
 
-    public ALNSProcess(Solution s_, Instance instance, IALNSConfig c, ControlParameter cp) throws InterruptedException {
-
-        cpng = cp.isSolutionImages();
+    public MyALNSProcess(Solution s_, Instance instance, IALNSConfig c, ControlParameter cp) throws InterruptedException {
+    	cpng = cp.isSolutionImages();
 
         config = c;
-        s_g = new ALNSSolution(s_, instance);
-        s_c = new ALNSSolution(s_g);
+        s_g = new MyALNSSolution(s_, instance);
+        s_c = new MyALNSSolution(s_g);
 
         // Khởi tạo tham số alns
         initStrategies();
+
+        // ���ӻ�
         if (cp.isSolutionsLinechart()) {
             //o.add(new SolutionsLinechart(this));
         }
@@ -62,29 +63,31 @@ public class ALNSProcess {
         T = T_s;
         T_end = T_end_t * T_s;
         t_start = System.currentTimeMillis();
+        //o.onStartConfigurationObtained(this);
 
         while (true) {
-
             // sc: giải pháp tối ưu cục bộ, tạo ra một giải pháp mới từ giải pháp tối ưu cục bộ
-            ALNSSolution s_c_new = new ALNSSolution(s_c);
+            MyALNSSolution s_c_new = new MyALNSSolution(s_c);
             int q = getQ(s_c_new);
 
+            // xóa bỏ giải pháp
             IALNSDestroy destroyOperator = getALNSDestroyOperator();
             IALNSRepair repairOperator = getALNSRepairOperator();
+            //o.onDestroyRepairOperationsObtained(this, destroyOperator, repairOperator, s_c_new, q);
 
-            // xóa bỏ giải pháp
-            ALNSSolution s_destroy = destroyOperator.destroy(s_c_new, q);
-
+            // destroy solution
+            MyALNSSolution s_destroy = destroyOperator.destroy(s_c_new, q);
+            //o.onSolutionDestroy(this, s_destroy);
 
             // sửa lại
-            ALNSSolution s_t = repairOperator.repair(s_destroy);
+            MyALNSSolution s_t = repairOperator.repair(s_destroy);
+            //o.onSolutionRepaired(this, s_t);
 
             System.out.println("Number of iterations" +  i + "current solution" + Math.round(s_t.cost.total * 100) / 100.0);
 
             // Cập nhật giải pháp
             if (s_t.cost.total < s_c.cost.total) {
                 s_c = s_t;
-               //
                 if (s_t.cost.total < s_g.cost.total) {
                     handleNewGlobalMinimum(destroyOperator, repairOperator, s_t);
                 } else {
@@ -94,7 +97,6 @@ public class ALNSProcess {
                 // Xác suất chấp nhận các giải pháp kém
                 handleWorseSolution(destroyOperator, repairOperator, s_t);
             }
-
             if (i % config.getTau() == 0 && i > 0) {
                 segmentFinsihed();
             }
@@ -125,9 +127,9 @@ public class ALNSProcess {
         return solution;
     }
 
-    private void handleWorseSolution(IALNSDestroy destroyOperator, IALNSRepair repairOperator, ALNSSolution s_t) {
+    private void handleWorseSolution(IALNSDestroy destroyOperator, IALNSRepair repairOperator, MyALNSSolution s_t) {
         // Xác suất chấp nhận các giải pháp kém
-        double p_accept = calculateProbabilityToAcceptTempSolutionAsNewCurrent(s_t);
+    	double p_accept = calculateProbabilityToAcceptTempSolutionAsNewCurrent(s_t);
         if (Math.random() < p_accept) {
             s_c = s_t;
         }
@@ -140,9 +142,8 @@ public class ALNSProcess {
         repairOperator.addToPi(config.getSigma_2());
     }
 
-    private void handleNewGlobalMinimum(IALNSDestroy destroyOperator, IALNSRepair repairOperator, ALNSSolution s_t) throws IOException {
+    private void handleNewGlobalMinimum(IALNSDestroy destroyOperator, IALNSRepair repairOperator, MyALNSSolution s_t) throws IOException {
         if (this.cpng) {
-
         }
         //Giải pháp tốt nhất được chấp nhận
         s_g = s_t;
@@ -150,11 +151,11 @@ public class ALNSProcess {
         repairOperator.addToPi(config.getSigma_1());
     }
 
-    private double calculateProbabilityToAcceptTempSolutionAsNewCurrent(ALNSSolution s_t) {
+    private double calculateProbabilityToAcceptTempSolutionAsNewCurrent(MyALNSSolution s_t) {
         return Math.exp (-(s_t.cost.total - s_c.cost.total) / T);
     }
 
-    private int getQ(ALNSSolution s_c2) {
+    private int getQ(MyALNSSolution s_c2) {
         int q_l = Math.min((int) Math.ceil(0.05 * s_c2.instance.getCustomerNr()), 10);
         int q_u = Math.min((int) Math.ceil(0.20 * s_c2.instance.getCustomerNr()), 30);
 
@@ -177,8 +178,6 @@ public class ALNSProcess {
 
         for (IALNSDestroy dstr : destroy_ops) {
             dstr.setP(dstr.getW() / w_sum);
-            //dstr.setDraws(0);
-            //dstr.setPi(0);
         }
         w_sum = 0;
 
@@ -191,8 +190,6 @@ public class ALNSProcess {
 
         for (IALNSRepair rpr : repair_ops) {
             rpr.setP(rpr.getW() / w_sum);
-            //rpr.setDraws(0);
-            //rpr.setPi(0);
         }
     }
 
@@ -230,18 +227,19 @@ public class ALNSProcess {
 
     private void initStrategies() {
         for (IALNSDestroy dstr : destroy_ops) {
-            dstr.setDraws(0);
+        	dstr.setDraws(0);
             dstr.setPi(0);
             dstr.setW(1.);
             dstr.setP(1 / (double) destroy_ops.length);
         }
         for (IALNSRepair rpr : repair_ops) {
             rpr.setDraws(0);
-            rpr.setPi(0);
+        	rpr.setPi(0);
             rpr.setW(1.);
             rpr.setP(1 / (double) repair_ops.length);
         }
     }
+
     public IALNSConfig getConfig() {
         return this.config;
     }
@@ -254,11 +252,11 @@ public class ALNSProcess {
         return this.repair_ops;
     }
 
-    public ALNSSolution getS_g() {
+    public MyALNSSolution getS_g() {
         return this.s_g;
     }
 
-    public ALNSSolution getS_c() {
+    public MyALNSSolution getS_c() {
         return this.s_c;
     }
 

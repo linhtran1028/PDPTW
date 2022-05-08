@@ -1,4 +1,5 @@
 package alns.operation;
+
 public interface IALNSOperation {
 
     int getPi();

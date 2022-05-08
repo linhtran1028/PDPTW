@@ -7,23 +7,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-
-
 public class Instance {
-
+	
     private int[] vehicleInfo;
     private int[][] customerInfo;
     private String name;
     private String type;
     private Random r;
+    
+	public Random getRandom() {
+		return r;
+	}
 
-    public Random getRandom() {
-        return r;
-    }
-
-    public void setR(Random r) {
-        this.r = r;
-    }
+	public void setR(Random r) {
+		this.r = r;
+	}
 
     /**
      * Tạo list danh sách chứa các nút của yêu cầu
@@ -35,15 +33,12 @@ public class Instance {
      * Số lượng xe có sẵn
      */
     private int vehicleNr;
-
     private int vehicleCapacity;
 
     /**
      * Ma trận 2-D sẽ giữ khoảng cách của mọi nút với nhau.
      */
     private double[][] distanceMatrix;
-
-
     private int numberOfNodes;
 
     public List<Node> getCustomers() {
@@ -53,58 +48,61 @@ public class Instance {
     public double[][] getDistanceMatrix() {
         return this.distanceMatrix;
     }
-
+    
     public int getVehicleNr() {
-        return this.vehicleNr;
+    	return this.vehicleNr;
     }
-
+    
     public int getVehicleCapacity() {
-        return this.vehicleCapacity;
+    	return this.vehicleCapacity;
     }
-
+    
     public int getCustomerNr() {
-        return this.numberOfNodes;
+    	return this.numberOfNodes;
     }
-
+	
     public Instance(int size, String name, String instanceType) throws IOException {
         //Đọc dữ liệu
-        this.name = name;
-        this.type = instanceType;
-        importVehicleData(size, name);
-
-        this.customers = new ArrayList<Node>();
+    	this.name = name;
+    	this.type = instanceType; 
+    	importVehicleData(size, name);
+    	
+    	this.customers = new ArrayList<Node>();
         importCustomerData(size, name);
-
+       
         this.distanceMatrix = new double[size + 5][size + 5];
         createDistanceMatrix();
-
+        
         r = new Random();
         r.setSeed(-1);
     }
 
     public void importCustomerData(int size, String name) throws IOException {
-        String dataFileName = "";
-        if (type.equals("Solomon"))
-            dataFileName = "./instances" + "/solomon" + "/solomon_" + size + "/" + name + ".txt";
-        else if (type.equals("Homberger"))
-            dataFileName = "./instances" + "/homberger" + "/homberger_" + size + "/" + name + ".txt";
 
+    	String dataFileName = "";
+    	if (type.equals("Solomon"))
+    		dataFileName = "./instances" + "/solomon" + "/solomon_" + size + "/" + name + ".txt";
+
+    	else if (type.equals("Homberger"))
+    		dataFileName = "./instances" + "/homberger" + "/homberger_" + size + "/" + name + ".txt";
+    	
         BufferedReader bReader = new BufferedReader(new FileReader(dataFileName));
 
         int data_in_x_lines = Integer.MAX_VALUE;
 
         String line;
-
+        
         while ((line = bReader.readLine()) != null) {
+
             String datavalue[] = line.split("\\s+");
 
             if (datavalue.length > 0 && datavalue[0].equals("CUST")) {
                 data_in_x_lines = 2;
             }
-
+            
             if (data_in_x_lines < 1 && datavalue.length > 0) {
-
-                Node customer = new Node();
+                
+            	Node customer = new Node();
                 customer.setId(Integer.parseInt(datavalue[1]));
                 customer.setX(Double.parseDouble(datavalue[2]));
                 customer.setY(Double.parseDouble(datavalue[3]));
@@ -116,20 +114,22 @@ public class Instance {
             data_in_x_lines--;
         }
         bReader.close();
-
+        
         numberOfNodes = customers.size();
-
+        System.out.println("Duong dan o day:" + dataFileName);
         System.out.println("Input customers success !");
-
+        
     }
-
+    
+    //��ȡ���ݳ�����Ϣ
     public void importVehicleData(int size, String name) throws IOException {
-        String dataFileName = "";
-        if (type.equals("Solomon"))
-            dataFileName = "./instances" + "/solomon" + "/solomon_" + size + "/" + name + ".txt";
-        else if (type.equals("Homberger"))
-            dataFileName = "./instances" + "/homberger" + "/homberger_" + size + "/" + name + ".txt";
 
+    	String dataFileName = "";
+    	if (type.equals("Solomon"))
+    		dataFileName = "./instances" + "/solomon" + "/solomon_" + size + "/" + name + ".txt";
+    	else if (type.equals("Homberger"))
+    		dataFileName = "./instances" + "/homberger" + "/homberger_" + size + "/" + name + ".txt";
+    	
         BufferedReader bReader = new BufferedReader(new FileReader(dataFileName));
 
         int row = 0;
@@ -139,19 +139,19 @@ public class Instance {
             String datavalue[] = line.split("\\s+");
 
             if (row == 4) {
-                //Số lượng xe có sẵn
+            	//���ó�������
                 this.vehicleNr = Integer.valueOf(datavalue[1]);
-                //Công suất xe
+                //��������
                 this.vehicleCapacity = Integer.valueOf(datavalue[2]);
                 break;
             }
             row++;
         }
         bReader.close();
-
+        
         System.out.println("Input vehicle success !");
     }
-
+    
     public int[] getVehicleInfo() {
         return vehicleInfo;
     }
@@ -163,7 +163,10 @@ public class Instance {
     public String getName() {
         return this.name;
     }
-
+    
+    /**
+     * A helper function that creates the distance matrix.
+     */
     private void createDistanceMatrix() {
         for (int i = 0; i < this.numberOfNodes; i++) {
             Node n1 = this.customers.get(i);

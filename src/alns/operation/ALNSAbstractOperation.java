@@ -1,9 +1,8 @@
 package alns.operation;
-import alns.operation.IALNSOperation;
 
 import java.util.*;
-public abstract class ALNSAbstractOperation implements IALNSOperation {
 
+public abstract class ALNSAbstractOperation implements IALNSOperation {
     private final Random r = new Random();
     private int pi;
     private double p;
@@ -11,7 +10,6 @@ public abstract class ALNSAbstractOperation implements IALNSOperation {
     private double w;
 
     @Override
-
     public void drawn() {
         draws++;
     }

@@ -1,9 +1,9 @@
 package alns.repair;
 
-import algrithm.ALNSSolution;
+import algrithm.MyALNSSolution;
 import alns.operation.IALNSOperation;
 
 public interface IALNSRepair extends IALNSOperation {
 
-    ALNSSolution repair(ALNSSolution from);
+    MyALNSSolution repair(MyALNSSolution from);
 }

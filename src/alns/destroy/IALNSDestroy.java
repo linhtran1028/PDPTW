@@ -1,10 +1,10 @@
 package alns.destroy;
 
-import algrithm.ALNSSolution;
+import algrithm.MyALNSSolution;
 import alns.operation.IALNSOperation;
 
 public interface IALNSDestroy extends IALNSOperation {
 
-    ALNSSolution destroy(ALNSSolution s, int nodes) throws Exception;
+    MyALNSSolution destroy(MyALNSSolution s, int nodes) throws Exception;
 
 }

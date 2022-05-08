@@ -1,13 +1,6 @@
 package alns;
 
 
-import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
-
 import algrithm.CheckSolution;
 import algrithm.Solution;
 import algrithm.Solver;
@@ -15,7 +8,12 @@ import alns.config.ALNSConfiguration;
 import alns.config.ControlParameter;
 import alns.config.IALNSConfig;
 import instance.Instance;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
 
+import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Main {
@@ -31,9 +29,9 @@ public class Main {
     static String[] VRPFD_INSTANCES = new String[]{"C108", "C206", "C203", "R202", "R207", "R104", "RC202", "RC205", "RC208"};
     static String[] Homberger_200 = new String[] {"C1_2_1", "C1_2_2", "C1_2_3", "C1_2_4"};
     static String[] Homberger_400 = new String[] {"C1_4_1", "C1_4_2", "C1_4_3", "C1_4_4"};
-
+    
     public static void main(String args[]) {
-
+    	
         String[] instances = { "C101" };
         String[][] result = new String[instances.length][];
 
@@ -73,41 +71,41 @@ public class Main {
         Solution ims = solver.improveSolution(is, c, cp, instance);
         System.out.println(ims);
         System.out.println(checkSolution.Check(ims));
-
+        
         String[] result = {String.valueOf(ims.getTotalCost()), String.valueOf(ims.testTime)};
         return result;
     }
-
-    public static void printToCSV(String FILE_NAME, String[][] result, int size) {
-        final String[] FILE_HEADER={"InstanceName", "BestCost", "TimeCost"};
-
-        FileWriter fileWriter=null;
-        CSVPrinter csvPrinter=null;
-        CSVFormat csvFormat= CSVFormat.DEFAULT.withHeader(FILE_HEADER);
-
-        try {
-            fileWriter=new FileWriter(FILE_NAME + ".csv");
-            csvPrinter=new CSVPrinter(fileWriter, csvFormat);
-
-            for(int i = 0; i < size; i++){
-                List<String> record=new ArrayList<>();
-                record.add(Homberger_400[i]);
-                record.add(result[i][0]);
-                record.add(result[i][1]);
-                csvPrinter.printRecord(record);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }finally {
-            try{
-                fileWriter.flush();
-                fileWriter.close();
-                csvPrinter.close();
-            }catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
+    
+	public static void printToCSV(String FILE_NAME, String[][] result, int size) {
+		final String[] FILE_HEADER={"InstanceName", "BestCost", "TimeCost"};
+		
+		FileWriter fileWriter=null;
+		CSVPrinter csvPrinter=null;
+		CSVFormat csvFormat=CSVFormat.DEFAULT.withHeader(FILE_HEADER);
+		
+		try {
+			fileWriter=new FileWriter(FILE_NAME + ".csv");
+			csvPrinter=new CSVPrinter(fileWriter, csvFormat);
+			
+			for(int i = 0; i < size; i++){
+				List<String> record=new ArrayList<>();
+				record.add(Homberger_400[i]);
+				record.add(result[i][0]);
+				record.add(result[i][1]);
+				csvPrinter.printRecord(record);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try{
+				fileWriter.flush();
+				fileWriter.close();
+				csvPrinter.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 }

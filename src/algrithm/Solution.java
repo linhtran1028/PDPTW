@@ -1,11 +1,13 @@
 package algrithm;
+
+import instance.Route;
+
 import java.util.ArrayList;
 import java.util.List;
-import instance.Route;
-public class Solution {
-    public double testTime;
-    private List<Route> routes;
 
+public class Solution {
+	public double testTime;
+    private List<Route> routes;
     /**
      * Tổng chi phí của giải pháp. Nó được tính bằng tổng chi phí của tất cả các tuyến đường.
      */
@@ -25,7 +27,7 @@ public class Solution {
     public List<Route> getRoutes() {
         return routes;
     }
-
+    
     public void setRoutes(List<Route> routes) {
         this.routes = routes;
     }
@@ -41,12 +43,12 @@ public class Solution {
     public void setTotalCost(double totalCost) {
         this.totalCost = totalCost;
     }
-
-
+    
+    
     public int getVehicleNr() {
         return vehicleNr;
     }
-
+    
     public void setVehicleNr(int vehicleNr) {
         this.vehicleNr = vehicleNr;
     }
@@ -67,7 +69,7 @@ public class Solution {
 
         return clone;
     }
-
+    
     @Override
     public String toString() {
         String result = "Solution{" +
@@ -75,9 +77,10 @@ public class Solution {
                 ", routes=[";
 
         for (Route vehicle: this.routes) {
-            if (vehicle.getRoute().size() > 2)
-                result += "\n\t" + vehicle;
+        	if (vehicle.getRoute().size() > 2)
+        		result += "\n\t" + vehicle;
         }
+
         return result + "]}";
     }
 }

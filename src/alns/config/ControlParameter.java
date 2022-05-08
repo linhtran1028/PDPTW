@@ -1,6 +1,7 @@
 package alns.config;
 
 public class ControlParameter {
+
     private final boolean solutionsLinechart;
     private final boolean operationsLinechart;
     private final boolean solutionImages;
