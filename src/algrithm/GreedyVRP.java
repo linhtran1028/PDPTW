@@ -54,7 +54,7 @@ public class GreedyVRP {
     public Solution getInitialSolution() {
         Solution solution = new Solution();
 
-        // Fetch the depot node.
+        // Nút kho
         Node depot = this.customers.remove(0);
 
         // Tìm phương tiện có sẵn đầu tiên
@@ -62,17 +62,16 @@ public class GreedyVRP {
 
         // Thêm kho vào tuyến đường
         currentVehicle.addNodeToRoute(depot);
-
+        // Nếu tất cả các xe đều phục vụ được tới các điểm đón và nhận hàng.
         // Lặp lại cho tới khi tất cả được định tuyến hoặc hết xe .
         while (true) {
 
-            // Nếu tất cả các xe đều phục vụ được tới các điểm đón và nhận hàng.
             if (this.customers.size() == 0)
                 break;
 
             // Lấy nút cuối cùng của tuyến đường hiện tại. Tìm nút gần nhất với nó cũng thỏa mãn giới hạn dung lượng.
             Node lastInTheCurrentRoute = currentVehicle.getLastNodeOfTheRoute();
-
+//            System.out.println(currentVehicle);
             // Khoảng cách của nút gần nhất, nếu có, đến nút cuối cùng trong tuyến.
             double smallestDistance = Double.MAX_VALUE;
 
@@ -82,7 +81,6 @@ public class GreedyVRP {
             // Tìm điểm lân cận gần nhất dựa vào khoảng cách
             for (Node n: this.customers) {
                 double distance = this.distanceMatrix[lastInTheCurrentRoute.getId()][n.getId()];
-
                 // Nếu tìm thấy điểm đến mà có giá trị gần nhất với giá trị "Khoảng cách nhỏ nhất", hãy tạm thời lưu trữ điểm đó
                 if ( distance < smallestDistance &&
                         (currentVehicle.getCost().load + n.getDemand()) <= vehicleCapacity &&
@@ -134,8 +132,6 @@ public class GreedyVRP {
 
                 if ( this.vehicles.size()==0 ) {
                     break;
-
-
                 } else {
 
                     currentVehicle = this.vehicles.remove(0);

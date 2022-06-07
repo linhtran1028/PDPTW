@@ -4,6 +4,7 @@ import instance.Instance;
 import instance.Node;
 import instance.Route;
 
+import java.awt.desktop.SystemEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,6 @@ public class MyALNSSolution {
         this.cost = new Cost();
         this.vehicleNr = 0;
         this.instance = instance;
-        
         this.alpha = punish;
         this.beta = punish;
         
@@ -110,19 +110,22 @@ public class MyALNSSolution {
 		if (this.routes.get(routePosition).getCost().load > this.instance.getVehicleCapacity())
 			this.cost.loadViolation += this.routes.get(routePosition).getCost().load - this.instance.getVehicleCapacity();
 		
-		insertRoute.addNodeToRouteWithIndex(insertCustomer, insertCusPosition);;
+		insertRoute.addNodeToRouteWithIndex(insertCustomer, insertCusPosition);
 
 		// Tính toán đường đi hiện tại, sự vi phạm cửa sổ thời gian, thời gian
 		double time = 0;
 		double timeWindowViolation = 0;
 		for (int i = 1; i < insertRoute.getRoute().size(); i++) {	
 			time += distance[insertRoute.getRoute().get(i - 1).getId()][insertRoute.getRoute().get(i).getId()];
+
 			if (time < insertRoute.getRoute().get(i).getTimeWindow()[0])
+
 				time = insertRoute.getRoute().get(i).getTimeWindow()[0];
 			else if (time > insertRoute.getRoute().get(i).getTimeWindow()[1])
 				timeWindowViolation += time - insertRoute.getRoute().get(i).getTimeWindow()[1];
-			
+
 			time += insertRoute.getRoute().get(i).getServiceTime();
+
 		}
 
 		//  Cập nhật sự vi phạm cửa sổ thời gian, thời gian

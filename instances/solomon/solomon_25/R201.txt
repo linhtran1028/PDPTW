@@ -1,4 +1,4 @@
-R201
+&R201
 
 VEHICLE
 NUMBER     CAPACITY
@@ -33,4 +33,4 @@ CUST NO.   XCOORD.    YCOORD.    DEMAND  READY TIME   DUE DATE   SERVICE TIME
    23      55          5         29        206        325         10   
    24      65         35          3        704        847         10   
    25      65         20          6        817        956         10   
-   
+   0.877

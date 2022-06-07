@@ -15,7 +15,10 @@ import instance.Instance;
 import java.io.IOException;
 import java.util.Random;
 
-public class MyALNSProcess {
+public class
+
+
+MyALNSProcess {
     private final IALNSConfig config;
     private final IALNSDestroy[] destroy_ops = new IALNSDestroy[]{
             new ShawDestroy(),
@@ -49,7 +52,6 @@ public class MyALNSProcess {
         // Khởi tạo tham số alns
         initStrategies();
 
-        // ���ӻ�
         if (cp.isSolutionsLinechart()) {
             //o.add(new SolutionsLinechart(this));
         }
@@ -60,6 +62,7 @@ public class MyALNSProcess {
 
     public Solution improveSolution() throws Exception {
         T_s = -(config.getDelta() / Math.log(config.getBig_omega())) * s_c.cost.total;
+
         T = T_s;
         T_end = T_end_t * T_s;
         t_start = System.currentTimeMillis();
@@ -81,9 +84,7 @@ public class MyALNSProcess {
 
             // sửa lại
             MyALNSSolution s_t = repairOperator.repair(s_destroy);
-            //o.onSolutionRepaired(this, s_t);
 
-            System.out.println("Number of iterations" +  i + "current solution" + Math.round(s_t.cost.total * 100) / 100.0);
 
             // Cập nhật giải pháp
             if (s_t.cost.total < s_c.cost.total) {
@@ -116,12 +117,12 @@ public class MyALNSProcess {
 
         for (IALNSDestroy destroy : destroy_ops){
             System.out.println(destroy.getClass().getName() +
-                    "used" + destroy.getDraws() + "´Î.");
+                    " used " + destroy.getDraws() + " times");
         }
 
         for (IALNSRepair repair : repair_ops){
             System.out.println(repair.getClass().getName() +
-                    "used" + repair.getDraws() + "´Î.");
+                    " used " + repair.getDraws() + " times");
         }
         solution.testTime = s;
         return solution;

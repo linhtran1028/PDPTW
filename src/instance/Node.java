@@ -4,10 +4,10 @@ public class Node {
 	
 	private double timeWindows[]; // khung thoi gian khi di qua moi nut
 	private double serviceTime; // thoi gian thuc hien moi yeu cau
-    private double x;
-    private double y;
-    private int id;
-    private double demand;
+    private double x; // Tọa độ x
+    private double y; // Tọa độ y
+    private int id; // Id cua nut
+    private double demand; // yêu cầu của khách hàng
 
 
     // Khai bao gia tri nut trong khong gia hai chieu, khung thoi gian rang buoc o moi nut

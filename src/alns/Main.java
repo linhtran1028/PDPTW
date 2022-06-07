@@ -38,32 +38,31 @@ public class Main {
         for (int j = 0; j < instances.length; j = j + 1) {
             try {
                 result[j] = solve(
-                        instances[j],                    //��Ҫ���Ե�����
-                        "Solomon",                      // ��������,����Homberger��Solomon��ע���д
-                        25,                        //�ͻ���������Solomon��ѡ�� 25,50,100��Homberger��ѡ��200��400
-                        ALNSConfiguration.DEFAULT,    //ALNS��ز���
+                        instances[j],
+                        "Solomon",
+                        25,
+                        ALNSConfiguration.DEFAULT,
                         new ControlParameter(
-                                false,                //��ʷ����⡢��ǰ����⡢�½��ʱ��ͼ������Ч��չʾ
-                                false,                //ALNS����ʱ��ͼ
-                                false                //���ɽ��ӦЧ��ͼ�����ÿ�ε�������ʷ����⣩
+                                false,
+                                false,
+                                false
                         ));
-                //printToCSV("ALNS TEST", result, instances.length);
+
             } catch (Exception e2) {
                 e2.printStackTrace();
             }
         }
     }
 
-    // solve����������� ������������������ͻ�����
     private static String[] solve(String name, String instanceType, int size, IALNSConfig c, ControlParameter cp) throws Exception {
 
-        // ����Solomon����
+        // Đọc dữ liệu đầu vào
         Instance instance = new Instance(size, name, instanceType);
-        // �����
+        // Kiểm tra giải pháp
         CheckSolution checkSolution = new CheckSolution(instance);
-        // �������
+        // giải pháp mới được khởi tạo
         Solver solver = new Solver();
-        // ��ʼ��
+
         Solution is = solver.getInitialSolution(instance);
         //System.out.println(is);
         //System.out.println(checkSolution.Check(is));

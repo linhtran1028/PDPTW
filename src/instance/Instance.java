@@ -25,7 +25,7 @@ public class Instance {
 
     /**
      * Tạo list danh sách chứa các nút của yêu cầu
-     * vị trí 0 của danh sách chứa tổng kho.
+     * vị trí 0 của danh sách chứa kho.
      */
     private List<Node> customers;
 
@@ -88,7 +88,7 @@ public class Instance {
     	
         BufferedReader bReader = new BufferedReader(new FileReader(dataFileName));
 
-        int data_in_x_lines = Integer.MAX_VALUE;
+        int data_in_x_lines = Integer.MAX_VALUE; //2147483647
 
         String line;
         
@@ -99,9 +99,8 @@ public class Instance {
             if (datavalue.length > 0 && datavalue[0].equals("CUST")) {
                 data_in_x_lines = 2;
             }
-            
+
             if (data_in_x_lines < 1 && datavalue.length > 0) {
-                
             	Node customer = new Node();
                 customer.setId(Integer.parseInt(datavalue[1]));
                 customer.setX(Double.parseDouble(datavalue[2]));
@@ -121,7 +120,7 @@ public class Instance {
         
     }
     
-    //��ȡ���ݳ�����Ϣ
+    //Đọc dữ liệu đầu vào
     public void importVehicleData(int size, String name) throws IOException {
 
     	String dataFileName = "";
@@ -137,12 +136,19 @@ public class Instance {
         String line;
         while ((line = bReader.readLine()) != null) {
             String datavalue[] = line.split("\\s+");
-
+//            System.out.print(row+":     ");
+//            for (int i = 0; i<  datavalue.length ; i++){
+//                System.out.print(i+"-");
+//                System.out.print(datavalue[i] + ", ");
+//            }
+            System.out.print("\n");
             if (row == 4) {
-            	//���ó�������
+            	//Số lượng xe có sẵn
                 this.vehicleNr = Integer.valueOf(datavalue[1]);
-                //��������
+                System.out.println("Vehicle Number: " + Integer.valueOf(datavalue[1]));
+                //Công suất xe
                 this.vehicleCapacity = Integer.valueOf(datavalue[2]);
+                System.out.println("Capacity: " + Integer.valueOf(datavalue[2]));
                 break;
             }
             row++;
@@ -165,7 +171,7 @@ public class Instance {
     }
     
     /**
-     * A helper function that creates the distance matrix.
+     *
      */
     private void createDistanceMatrix() {
         for (int i = 0; i < this.numberOfNodes; i++) {
@@ -173,7 +179,7 @@ public class Instance {
 
             for (int j = 0; j < this.numberOfNodes; j++) {
                 Node n2 = this.customers.get(j);
-
+                //Tính khoảng cách giữa 2 nút
                 this.distanceMatrix[i][j] =(double)(Math.round ( Math.sqrt(Math.pow(n1.getX() - n2.getX(), 2) +
                         Math.pow(n1.getY() - n2.getY(), 2)) * 100 ) / 100.0);;
             }

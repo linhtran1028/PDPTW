@@ -28,7 +28,7 @@ public class ShawDestroy extends ALNSAbstractOperation implements IALNSDestroy {
         
         Collections.shuffle(routeList);
 
-		// Chọn đường dẫn nơi điểm đến bị loại bỏ đang ở
+		// Chọn đường dẫn nơi điểm đến bị loại bỏ đang tồn tại trong tuyến đường
 		int removenRoutePosition = routeList.remove(0);
 		Route removenRoute = s.routes.get(removenRoutePosition);
 		
@@ -42,8 +42,7 @@ public class ShawDestroy extends ALNSAbstractOperation implements IALNSDestroy {
         	cusList.add(j);  
         
         Collections.shuffle(cusList);  
-        
-		// ѡ���Ƴ��ͻ����ڵ�·��
+
 		int removenCusPosition = cusList.remove(0);
 		Node removenCus = removenRoute.getRoute().get(removenCusPosition);
 		

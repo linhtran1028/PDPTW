@@ -6,9 +6,9 @@ public class Cost {
 	public double time;
 	public double load;
 
-	public double loadViolation;
-	public double timeViolation;
-	// Khai bao cac chi phi kem theo (thoi gian, so luong, chi phi)
+	public double loadViolation;// Vi phạm tải trọng
+	public double timeViolation; //Vi pham về thời gian
+	// Khai bao cac chi phi kem theo (thoi gian, so luong, chi phi, yêu cầu của khách hàng)
 	public Cost(){
 		total           = 0;
 		cost            = 0;
@@ -31,8 +31,7 @@ public class Cost {
 
 	@Override
 	public String toString() {
-		String result = "[ total =" + total +
-				", cost =" + cost +
+		String result = "[ cost =" + cost +
 				", load =" + load +
 				", time =" + time +
 				", time windows violation =" + timeViolation +

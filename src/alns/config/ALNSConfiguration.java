@@ -7,11 +7,11 @@ public enum ALNSConfiguration implements IALNSConfig {
 
 
     private final int omega;//Số lần lặp lại
-    private final int tau;//Cập nhật số lần lặp khoảng của xác suất lựa chọn toán tử
+    private final int tau;//Cập nhật khoảng thời gian lặp lại của xác suất lựa chọn toán tử
     private final double r_p;//tính toán xác suất
     private final int sigma_1;//tìm tối ưu toàn cục
     private final int sigma_2;//Tìm giá trị tối ưu cục bộ
-    private final int sigma_3;
+    private final int sigma_3;// Độ chênh lệch
     private final double c;
     private final double delta;
     private final double big_omega;
