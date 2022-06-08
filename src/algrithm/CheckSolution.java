@@ -42,7 +42,6 @@ public class CheckSolution {
         			
         			time += vehicle.getRoute().get(j).getServiceTime();
         		}
-        		
         		totalCost += costInVehicle;
         		
         		if (Math.abs(vehicle.getCost().cost - costInVehicle) > 0.001) checkCost = false;

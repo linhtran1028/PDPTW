@@ -64,9 +64,6 @@ public class Main {
         Solver solver = new Solver();
 
         Solution is = solver.getInitialSolution(instance);
-        //System.out.println(is);
-        //System.out.println(checkSolution.Check(is));
-        // �����
         Solution ims = solver.improveSolution(is, c, cp, instance);
         System.out.println(ims);
         System.out.println(checkSolution.Check(ims));
@@ -74,37 +71,4 @@ public class Main {
         String[] result = {String.valueOf(ims.getTotalCost()), String.valueOf(ims.testTime)};
         return result;
     }
-    
-	public static void printToCSV(String FILE_NAME, String[][] result, int size) {
-		final String[] FILE_HEADER={"InstanceName", "BestCost", "TimeCost"};
-		
-		FileWriter fileWriter=null;
-		CSVPrinter csvPrinter=null;
-		CSVFormat csvFormat=CSVFormat.DEFAULT.withHeader(FILE_HEADER);
-		
-		try {
-			fileWriter=new FileWriter(FILE_NAME + ".csv");
-			csvPrinter=new CSVPrinter(fileWriter, csvFormat);
-			
-			for(int i = 0; i < size; i++){
-				List<String> record=new ArrayList<>();
-				record.add(Homberger_400[i]);
-				record.add(result[i][0]);
-				record.add(result[i][1]);
-				csvPrinter.printRecord(record);
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			try{
-				fileWriter.flush();
-				fileWriter.close();
-				csvPrinter.close();
-			}catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
 }

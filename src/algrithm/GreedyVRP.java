@@ -71,7 +71,7 @@ public class GreedyVRP {
 
             // Lấy nút cuối cùng của tuyến đường hiện tại. Tìm nút gần nhất với nó cũng thỏa mãn giới hạn dung lượng.
             Node lastInTheCurrentRoute = currentVehicle.getLastNodeOfTheRoute();
-//            System.out.println(currentVehicle);
+            // System.out.println(currentVehicle);
             // Khoảng cách của nút gần nhất, nếu có, đến nút cuối cùng trong tuyến.
             double smallestDistance = Double.MAX_VALUE;
 

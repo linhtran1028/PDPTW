@@ -115,7 +115,7 @@ public class Instance {
         bReader.close();
         
         numberOfNodes = customers.size();
-        System.out.println("Duong dan o day:" + dataFileName);
+        System.out.println("Path File:" + dataFileName);
         System.out.println("Input customers success !");
         
     }

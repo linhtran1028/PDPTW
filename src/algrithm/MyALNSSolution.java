@@ -8,7 +8,8 @@ import java.awt.desktop.SystemEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyALNSSolution {
+public class
+MyALNSSolution {
 	
     public List<Route> routes;
     public Cost cost;
@@ -72,8 +73,6 @@ public class MyALNSSolution {
 		double[][] distance = instance.getDistanceMatrix();
 		
 		Route removenRoute = this.routes.get(routePosition);
-		
-		//System.out.println(this);
 		double load = - removenRoute.getRoute().get(cusPosition).getDemand();
 		double cost = 
 				- distance[removenRoute.getRoute().get(cusPosition - 1).getId()][removenRoute.getRoute().get(cusPosition).getId()]
